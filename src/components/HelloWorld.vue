@@ -1,8 +1,9 @@
 <template>
-  <h2>Hello World</h2>
-  <RouterLink to="/">
-    <div class="btn">
-      Back Demo
-    </div>
-  </RouterLink>
+  <div class="m-5 ">
+    <RouterLink to="/">
+      <button class="btn">
+        Back Demo Page
+      </button>
+    </RouterLink>
+  </div>
 </template>

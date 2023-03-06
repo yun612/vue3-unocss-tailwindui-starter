@@ -1,9 +1,21 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { ExclamationTriangleIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { useStore } from '@/store'
+import api from '@/api'
+
 const store = useStore()
+
+const sentence = ref('君子不器。')
+onMounted(async () => {
+  fetchSentence()
+})
+
+async function fetchSentence() {
+  const resp = await api.oneSentence()
+  sentence.value = resp.hitokoto
+}
 
 const open = ref(false)
 </script>
@@ -13,14 +25,21 @@ const open = ref(false)
     <div class="text-3xl i-twemoji-grinning-face-with-smiling-eyes hover:i-twemoji-face-with-tears-of-joy" />
 
     <div>
+      <button class="btn bg-amber-500 hover:bg-amber-600 mr-5" @click="fetchSentence">
+        Fetch API
+      </button>
+      {{ sentence }}
+    </div>
+
+    <div>
       <div class="btn" @click="open = !open">
-        Open TailwindUI Modal
+        TailwindUI Modal
       </div>
     </div>
 
     <div>
-      <div class="btn bg-blue-500 hover:bg-blue-600" @click="store.increment">
-        Incre Store Count
+      <div class="btn bg-blue-500 hover:bg-blue-600 mr-5" @click="store.increment">
+        Increase Store Count
       </div>
       {{ store.count }}
     </div>
