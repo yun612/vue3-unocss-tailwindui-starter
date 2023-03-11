@@ -2,13 +2,18 @@
 import { onMounted, ref } from 'vue'
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { ExclamationTriangleIcon, XMarkIcon } from '@heroicons/vue/24/outline'
+
 import { useStore } from '@/store'
+import useMouseClick from '@/hooks/useMouse'
 import api from '@/api'
 
 const store = useStore()
 
+const open = ref(false)
+const mouse = useMouseClick()
 const sentence = ref('君子不器。')
-onMounted(async () => {
+
+onMounted(() => {
   fetchSentence()
 })
 
@@ -16,8 +21,6 @@ async function fetchSentence() {
   const resp = await api.oneSentence()
   sentence.value = resp.hitokoto
 }
-
-const open = ref(false)
 </script>
 
 <template>
@@ -41,7 +44,9 @@ const open = ref(false)
       <div class="btn bg-blue-500 hover:bg-blue-600 mr-5" @click="store.increment">
         Increase Store Count
       </div>
-      {{ store.count }}
+      <span class="text-xl font-bold text-green-400">
+        {{ store.count }}
+      </span>
     </div>
 
     <div>
@@ -50,6 +55,22 @@ const open = ref(false)
           To Hello Page
         </div>
       </RouterLink>
+    </div>
+
+    <div class="inline-block border p-4">
+      useMouseClick hook
+      <p>
+        Mouse click x:
+        <span class="text-lg text-red-500 font-bold">
+          {{ mouse.x }}
+        </span>
+      </p>
+      <p>
+        Mouse click y:
+        <span class="text-lg text-blue-500 font-bold">
+          {{ mouse.y }}
+        </span>
+      </p>
     </div>
   </div>
 
