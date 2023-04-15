@@ -1,8 +1,8 @@
 import {
   defineConfig,
   presetIcons,
+  presetUno,
   presetWebFonts,
-  presetWind,
   // presetAttributify,
 } from 'unocss'
 
@@ -14,7 +14,7 @@ export default defineConfig({
     hover:bg-teal-700 disabled:cursor-default disabled:bg-gray-600 disabled:opacity-50`],
   ],
   presets: [
-    presetWind(),
+    presetUno(),
     // presetAttributify(),
     presetIcons({
       scale: 1.2,
